@@ -21,6 +21,7 @@ testem.log
 /typings
 .idea
 MODULE_REPORT.md
+electron-out/
 
 # ember-try
 .node_modules.ember-try/

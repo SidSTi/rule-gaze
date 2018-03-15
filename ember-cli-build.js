@@ -15,8 +15,7 @@ module.exports = function(defaults) {
 
     sassOptions: {
       includePaths: [
-        'app/styles',
-        'bower_components/bootstrap-sass/assets/stylesheets'
+        'app/styles'
       ]
     },
 
@@ -46,22 +45,7 @@ module.exports = function(defaults) {
 
   if (!isProduction) {
     app.import('bower_components/d3/d3.js');
-    app.import('bower_components/bootstrap-sass/assets/stylesheets/bootstrap.css')
   }
-
-  app.import('bower_components/bootstrap-sass/assets/javascripts/bootstrap.js');
-  app.import('bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2', {
-    destDir: 'fonts/bootstrap/'
-  });
-  app.import('bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff', {
-    destDir: 'fonts/bootstrap/'
-  });
-  app.import('bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf', {
-    destDir: 'fonts/bootstrap/'
-  });
-  app.import('bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg', {
-    destDir: 'fonts/bootstrap/'
-  });
 
   return app.toTree();
 };
