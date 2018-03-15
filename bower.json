@@ -1,0 +1,8 @@
+{
+  "name": "rule-gaze",
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "d3": "^4.13.0"
+  },
+  "dependencies": {}
+}
