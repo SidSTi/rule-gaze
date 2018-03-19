@@ -1,4 +1,3 @@
-@import "ember-cli-bootstrap-4/bootstrap";
 @import "definitions/all";
 
 #RULE-GAZE {
@@ -6,3 +5,5 @@
   // Components. The majority of styles live here.
   @import "components/all";
 }
+
+@import 'ember-paper';

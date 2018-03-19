@@ -106,7 +106,7 @@ export default Service.extend({
   },
 
   /**
-   * Convert Set to string
+   * Convert Set to a string.
    *
    * @public
    * @function toString

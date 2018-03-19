@@ -1,7 +1,0 @@
-{
-  "name": "rule-gaze",
-  "devDependencies": {
-    "d3": "^4.13.0"
-  },
-  "dependencies": {}
-}
