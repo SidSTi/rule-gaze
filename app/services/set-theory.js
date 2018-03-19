@@ -99,7 +99,7 @@ export default Service.extend({
    *
    * @return {Set} - a sorted set.
    */
-  sort(set) {
+  sort(set = new Set()) {
     let setArray = Array.from(set);
 
     return new Set(setArray.sort());
@@ -114,7 +114,7 @@ export default Service.extend({
    *
    * @return {string} - resultant string from the set.
    */
-  toString(set) {
+  toString(set = new Set()) {
     return `{${[...set]}}`;
   }
 });
