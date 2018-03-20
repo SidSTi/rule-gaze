@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 
 /**
- * Service to perform Set operations.
+ * Service to perform Set Theory operations.
  *
  * @public
  * @exports setTheory
