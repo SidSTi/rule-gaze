@@ -23,4 +23,12 @@ export default function() {
 
     http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
   */
+
+  this.post('/api/data/upload', (schema, request) => {
+    let requestBody = JSON.parse(request.requestBody);
+
+    console.info(requestBody);
+
+    return request;
+  });
 }
