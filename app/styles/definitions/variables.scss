@@ -19,3 +19,17 @@ $tangerine      : #F28120;
 $metallic-gold  : #FFD733;
 $khaki          : #FBFF26;
 $sky-blue       : #6ADDFF;
+
+// themes
+$primary: $cyan;
+$secondary: $tangerine;
+$ternary: $teal;
+
+@mixin font-face($name) {
+  @font-face {
+    font-family: $name;
+    src: url('fonts/#{$name}.ttf') format('truetype');
+  }
+}
+
+@include font-face('Monoton-Regular');

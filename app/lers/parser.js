@@ -102,6 +102,21 @@ export function extractVariables(inputString = '') {
 }
 
 /**
+ * Whether a string has variables.
+ *
+ * @public
+ * @function hasVariables
+ * @param {string} inputString
+ *
+ * @return {string}
+ */
+export function hasVariables(inputString = '') {
+  return inputString
+    .replace(/(\s|\t){2,}/g, ' ')
+    .match(/((\[)(\t|\s)*)|((\t|\s)*(\]))/g, '') !== null;
+}
+
+/**
  * Determine whether a string has valid rule condition.
  *
  * @public

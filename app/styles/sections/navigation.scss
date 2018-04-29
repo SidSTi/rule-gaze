@@ -1,0 +1,16 @@
+.navigation {
+  background: $white-chocolate;
+  border-bottom: 5px solid $primary;
+
+  .navbar-brand {
+    font-family: 'Monoton-Regular', 'Roboto';
+    font-style: italic;
+    font-size: 40px;
+    color: $primary;
+    padding: 0;
+
+    &:hover {
+      color: $secondary;
+    }
+  }
+}

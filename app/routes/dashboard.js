@@ -11,9 +11,8 @@ export default Route.extend({
   uploadData: task(function * (file) {
     let dataFile = this.store.createRecord('data-file', {
       id: get(file, 'id'),
-      url: get(file, 'url'),
-      filename: get(file, 'name'),
-      filesize: get(file, 'size')
+      fileName: get(file, 'name'),
+      fileSize: get(file, 'size')
     });
 
     try {
@@ -29,6 +28,18 @@ export default Route.extend({
   actions: {
     uploadData(file) {
       get(this, 'uploadData').perform(file);
+    },
+
+    deleteFile(fileId) {
+      let dataFile = this.store.peekRecord('data-file', fileId);
+
+      dataFile.deleteRecord();
+    },
+
+    selectFile(fileId) {
+      let dataFile = this.store.peekRecord('data-file', fileId);
+
+      dataFile.toggleProperty('isSelected');
     }
   }
 });

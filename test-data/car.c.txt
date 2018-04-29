@@ -1,0 +1,8 @@
+!Writing rules using approximation definition # 3
+
+2, 2, 2
+(Capacity,   4    ) & (Size,medium) -> (Quality,high)
+!skajdfnbwakjsfnwaljfs
+2, 1, 1
+(Capacity,  5     ) &     (     Size,     full) -> (Quality,high)
+!sjkdfnjfnsdkjfs

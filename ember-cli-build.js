@@ -19,6 +19,17 @@ module.exports = function(defaults) {
       ]
     },
 
+    octicons: {
+      icons: ['trachcan', 'check']
+    },
+
+    svgJar: {
+      sourceDirs: [
+        'public', // default SVGJar lookup directory
+        'node_modules/octicons/build/svg'
+      ]
+    },
+
     // Minify css in non-production environments (useful for hosted-widget).
     minifyCSS: {
       enabled: isProduction

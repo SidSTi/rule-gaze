@@ -1,0 +1,45 @@
+.data-file-list-item {
+  background: inherit;
+
+  .col {
+    padding: 0 5px;
+  }
+
+  .badge {
+    float: right;
+    padding: 8px;
+    vertical-align: middle;
+  }
+
+  .file-name {
+    font-size: 18px;
+  }
+
+  .file-delete {
+    .octicons {
+      fill: $angels-gray;
+
+      &:hover {
+        fill: $charcoal;
+      }
+    }
+  }
+
+  .file-select {
+    .inactive {
+      fill: $angels-gray;
+
+      &:hover {
+        fill: $charcoal;
+      }
+    }
+
+    .active {
+      fill: $green;
+
+      &:hover {
+        fill: lighten($green, 5%);
+      }
+    }
+  }
+}

@@ -1,54 +1,13 @@
-<nav class="navbar fixed-top navbar-dark bg-dark">
+<nav class="navigation navbar fixed-top">
   {{#link-to "dashboard" class="navbar-brand"}}Rule Gaze{{/link-to}}
 </nav>
 <div class="dashboard container">
   <div class="row">
-    <div class="col-md-8">
-      {{#file-dropzone name="addFiles" as |dropzone queue|}}
-        <div class="dropzone-upload-area" class={{concat 'upload ' (if dropzone.active 'active')}}>
-          {{#if dropzone.supported}}
-            <div class="emoji mb-16">
-              {{#if dropzone.active}}
-                {{#if dropzone.valid}}
-                  ✨👽✨
-                {{else}}
-                  🐮
-                {{/if}}
-              {{else}}
-                👽
-              {{/if}}
-            </div>
-          {{/if}}
-          <p>
-            {{#if dropzone.supported}}
-              Drag your item or
-            {{/if}}
-            {{#file-upload name="addFiles"
-              multiple=true
-              onfileadd=(route-action "uploadData")
-              accept="text/plain"
-            }}
-              <a>select them</a>
-            {{/file-upload}}
-            to upload.
-          </p>
-
-          {{#if queue.files.length}}
-            Uploaded {{queue.uploaded.length}} / {{queue.files.length}} files. ({{queue.progress}}%)
-          {{/if}}
-        </div>
-      {{/file-dropzone}}
-    </div>
-    <div class="col-md-4">
-      <h2>Rule Gaze Aside Component</h2>
-      <div class="container">
-        Files :
-        {{#each model as |file|}}
-          <div class="row data-file">
-            {{file.filename}}
-          </div>
-        {{/each}}
-      </div>
-    </div>
+    {{dropzone-container
+      model=model
+      onFileAdd=(route-action "uploadData")
+      onClickDelete=(route-action "deleteFile")
+      onClickSelect=(route-action "selectFile")
+    }}
   </div>
 </div>
