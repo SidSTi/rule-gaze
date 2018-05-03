@@ -1,5 +1,9 @@
 .dashboard {
-  margin-top: 140px;
+  padding: 100px 0;
+
+  .dropzone-container {
+    padding-top: 40px;
+  }
 
   .engage-visualization {
     padding: 30px;

@@ -2,6 +2,7 @@
 const { app, BrowserWindow, protocol } = require('electron');
 const { dirname, join, resolve } = require('path');
 const protocolServe = require('electron-protocol-serve');
+const warn = console.warn;
 
 let mainWindow = null;
 
@@ -30,8 +31,8 @@ app.on('window-all-closed', () => {
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 900,
   });
 
   // If you want to open up dev tools programmatically, call
@@ -49,16 +50,16 @@ app.on('ready', () => {
   });
 
   mainWindow.webContents.on('crashed', () => {
-    console.log('Your Ember app (or other code) in the main window has crashed.');
-    console.log('This is a serious issue that needs to be handled and/or debugged.');
+    warn('Your Ember app (or other code) in the main window has crashed.');
+    warn('This is a serious issue that needs to be handled and/or debugged.');
   });
 
   mainWindow.on('unresponsive', () => {
-    console.log('Your Ember app (or other code) has made the window unresponsive.');
+    warn('Your Ember app (or other code) has made the window unresponsive.');
   });
 
   mainWindow.on('responsive', () => {
-    console.log('The main window has become responsive again.');
+    warn('The main window has become responsive again.');
   });
 
   mainWindow.on('closed', () => {
@@ -82,7 +83,7 @@ app.on('ready', () => {
 // resources (e.g. file descriptors, handles, etc) before shutting down the process. It is
 // not safe to resume normal operation after 'uncaughtException'.
 process.on('uncaughtException', (err) => {
-  console.log('An exception in the main thread was not handled.');
-  console.log('This is a serious issue that needs to be handled and/or debugged.');
-  console.log(`Exception: ${err}`);
+  warn('An exception in the main thread was not handled.');
+  warn('This is a serious issue that needs to be handled and/or debugged.');
+  warn(`Exception: ${err}`);
 });

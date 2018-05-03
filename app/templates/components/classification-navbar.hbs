@@ -1,0 +1,47 @@
+<div class="row no-margin w-100">
+  <div class="col-2 d-flex align-items-center no-padding">
+    <button
+      type="button"
+      class="btn btn-back"
+      onclick={{action onClickBack}}
+    >
+      {{svg-jar "chevron-left" class="octicons" width="35px" height="45px"}}
+    </button>
+  </div>
+  <div class="col-10">
+    <div class="row justify-content-end">
+      {{toggle-switch
+        identifier="shouldUseMatchingFactor"
+        labelLeft="Default"
+        labelRight="1.0"
+        labelTop="Matching Factor"
+        isSwitchedOn=shouldUseMatchingFactor
+        onToggleSwitch=onToggleSwitch
+      }}
+      {{toggle-switch
+        identifier="shouldUseConditionalProbability"
+        labelLeft="Strength"
+        labelRight="Conditional Probability"
+        labelTop="Strength Factor"
+        isSwitchedOn=shouldUseConditionalProbability
+        onToggleSwitch=onToggleSwitch
+      }}
+      {{toggle-switch
+        identifier="shouldUseSpecificityReturnFactor"
+        labelLeft="Default"
+        labelRight="1.0"
+        labelTop="Specificity Factor"
+        isSwitchedOn=shouldUseSpecificityReturnFactor
+        onToggleSwitch=onToggleSwitch
+      }}
+      {{toggle-switch
+        identifier="shouldUseSupportFromOtherRules"
+        labelLeft="No"
+        labelRight="Yes"
+        labelTop="Support from other rules"
+        isSwitchedOn=shouldUseSupportFromOtherRules
+        onToggleSwitch=onToggleSwitch
+      }}
+    </div>
+  </div>
+</div>

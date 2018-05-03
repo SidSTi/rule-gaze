@@ -13,11 +13,4 @@
       color: $secondary;
     }
   }
-
-  &.navbar-footer {
-    border-bottom: none;
-    border-top: 2px solid darken($backdrop, 15%);
-    background: darken($backdrop, 10%);
-    justify-content: flex-end;
-  }
 }

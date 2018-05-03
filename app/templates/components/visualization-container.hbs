@@ -1,0 +1,18 @@
+{{#each LERS.ruleset.rules as |rule|}}
+  <div class="row">Rule: {{rule.toString}}</div>
+  <div class="row">Completely Matched Cases</div>
+  {{#each rule.completelyMatchedCases as |ccase|}}
+    <div class="row">{{ccase.toString}} --> Correctly Classified: {{ccase.isCorrectlyClassified}}</div>
+  {{/each}}
+  <div class="row"></div>
+  <div class="row">Partially Matched Cases</div>
+  {{#each rule.partiallyMatchedCases as |pcase|}}
+    <div class="row">{{pcase.toString}} --> Correctly Classified: {{pcase.isCorrectlyClassified}}</div>
+  {{/each}}
+{{else}}
+  <div class="row">Nothing Yet</div>
+{{/each}}
+<div class="row"></div>
+<div class="row">
+  {{LERS.stringify}}
+</div>
