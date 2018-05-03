@@ -1,3 +1,93 @@
 .visualization-container {
+  width: 100%;
+  margin: auto;
 
+  .rule-header {
+    margin-top: 20px;
+    padding: 10px;
+    width: 100%;
+    background: darken($backdrop, 15%);
+  }
+
+  .rule-legend {
+    padding: 10px;
+    width: 100%;
+    background: darken($backdrop, 15%);
+
+    .legend-container {
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: 5px;
+      }
+
+      .teal {
+        display: inline-block;
+        height: 15px;
+        width: 15px;
+        background: $teal;
+        margin-right: 5px;
+      }
+
+      .metallic-gold {
+        display: inline-block;
+        height: 15px;
+        width: 15px;
+        background: $metallic-gold;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .rule-visual {
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+    background: darken($backdrop, 10%);
+  }
+
+  .stacked-bar-bg {
+    height: 15px;
+    width: 100%;
+    background: darken($backdrop, 20%);
+
+    .stacked-bar-complete {
+      height: 100%;
+      background: $teal;
+    }
+
+    .stacked-bar-partial {
+      height: 100%;
+      background: $metallic-gold;
+    }
+  }
+
+  .general-statistics {
+    padding: 20px;
+    background: darken($backdrop, 15%);
+
+    .row {
+      margin: 0;
+    }
+
+    .statistics-header {
+      margin-bottom: 20px;
+    }
+
+    .stat-label {
+      text-transform: uppercase;
+      padding: 0 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: lighten($backdrop, 30%);
+    }
+
+    .stat-value {
+      border-bottom: 1px solid $backdrop;
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+  }
 }

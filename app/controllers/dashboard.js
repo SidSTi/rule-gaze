@@ -164,7 +164,13 @@ export default Controller.extend({
      * @function resetDashboard
      */
     resetDashboard() {
-      this.set('visualizationModeOn', false);
+      this.setProperties({
+        shouldUseMatchingFactor: true,
+        shouldUseConditionalProbability: true,
+        shouldUseSpecificityReturnFactor: true,
+        shouldUseSupportFromOtherRules: true,
+        visualizationModeOn: false
+      });
     },
 
     /**

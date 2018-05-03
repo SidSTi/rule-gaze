@@ -35,6 +35,7 @@ export default class Classifier {
     this.shouldUseSpecificityReturnFactor = shouldUseSpecificityReturnFactor;
     this.shouldUseSupportFromOtherRules = shouldUseSupportFromOtherRules;
     this.matchedCases = {};
+    this.generalStatistics = {};
 
     if (this.shouldUseConditionalProbability && this.ruleset.hasRulesWithZeroMatchingCases) {
       info('*** The Rule Set has a Rule with zero matching cases. Hence, conditional probability cannot be used. Using strength instead. ***');
@@ -44,6 +45,7 @@ export default class Classifier {
     // classify cases
     this.buildClassificationModel();
     this.classifyCases();
+    this.printGeneralStatistics();
   }
 
   get stringify() {
@@ -204,5 +206,38 @@ export default class Classifier {
       datasetCase.isCorrectlyClassified = datasetCase.isClassified && datasetCase.decision.value === decisionWithHighestScore.name;
       datasetCase.isIncorrectlyClassified = datasetCase.isClassified && datasetCase.decision.value !== decisionWithHighestScore.name;
     });
+  }
+
+  /**
+   * Print General Statistics.
+   *
+   * @public
+   * @function printGeneralStatistics
+   */
+  printGeneralStatistics() {
+    let casesNotClassified = 0;
+    let casesIncorrectlyClassified = 0;
+    let casesCorrectlyClassified = 0;
+    let totalNumberOfCases = this.dataset.cases.length;
+    let totalNumberOfAttributes = this.dataset.cases[0].attributes.length;
+    let totalNumberOfRules = this.ruleset.rules.length;
+
+    this.dataset.cases.forEach(datasetCase => {
+      casesNotClassified += !datasetCase.isClassified ? 1 : 0;
+      casesIncorrectlyClassified += datasetCase.isIncorrectlyClassified ? 1 : 0;
+      casesCorrectlyClassified += datasetCase.isCorrectlyClassified ? 1 : 0;
+    });
+
+    let errorRate = `${(((casesNotClassified + casesIncorrectlyClassified)/totalNumberOfCases) * 100).toFixed(2)}%`;
+
+    this.generalStatistics = {
+      casesNotClassified,
+      casesIncorrectlyClassified,
+      casesCorrectlyClassified,
+      totalNumberOfCases,
+      totalNumberOfAttributes,
+      totalNumberOfRules,
+      errorRate
+    };
   }
 }
