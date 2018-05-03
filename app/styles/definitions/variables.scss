@@ -9,7 +9,7 @@ $pager-color: #AAA;
 $white          : #FFF;
 $white-chocolate: #F8F8F8;
 $ivory          : #FFFFF0;
-$designo-silver : #F5F5F5;
+$designo-silver : #DDD;
 $overcast       : #AAA;
 $angels-gray    : #999;
 $devils-gray    : #666;
@@ -24,6 +24,7 @@ $sky-blue       : #6ADDFF;
 $primary: $cyan;
 $secondary: $tangerine;
 $ternary: $teal;
+$backdrop: $charcoal;
 
 @mixin font-face($name) {
   @font-face {

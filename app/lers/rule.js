@@ -23,5 +23,13 @@ export default class Rule {
     this.strength = strength;
     this.specificity = specificity;
     this.matchingCases = matchingCases;
+    this.completelyMatchedCases = [];
+    this.partiallyMatchedCases = [];
+  }
+
+  get toString() {
+    let conditions = this.conditions.map(condition => condition.toString);
+
+    return `${conditions.join(' & ')} -> ${this.action.toString}`;
   }
 }

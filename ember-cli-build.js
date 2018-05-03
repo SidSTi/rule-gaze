@@ -20,7 +20,7 @@ module.exports = function(defaults) {
     },
 
     octicons: {
-      icons: ['trachcan', 'check']
+      icons: ['trashcan', 'check']
     },
 
     svgJar: {

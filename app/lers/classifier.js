@@ -26,8 +26,7 @@ export default class Classifier {
       shouldUseMatchingFactor = true,
       shouldUseConditionalProbability = true,
       shouldUseSpecificityReturnFactor = true,
-      shouldUseSupportFromOtherRules = true,
-      fileNames = []
+      shouldUseSupportFromOtherRules = true
   ) {
     this.ruleset = new Ruleset(inputRuleFile);
     this.dataset = new Dataset(inputDataFile);
@@ -35,7 +34,6 @@ export default class Classifier {
     this.shouldUseConditionalProbability = shouldUseConditionalProbability;
     this.shouldUseSpecificityReturnFactor = shouldUseSpecificityReturnFactor;
     this.shouldUseSupportFromOtherRules = shouldUseSupportFromOtherRules;
-    this.fileNames = fileNames;
     this.matchedCases = {};
 
     if (this.shouldUseConditionalProbability && this.ruleset.hasRulesWithZeroMatchingCases) {
@@ -46,6 +44,10 @@ export default class Classifier {
     // classify cases
     this.buildClassificationModel();
     this.classifyCases();
+  }
+
+  get stringify() {
+    return info(this.matchedCases);
   }
 
   /**
@@ -68,7 +70,7 @@ export default class Classifier {
         let strength = rule.strength;
 
         if (this.shouldUseConditionalProbability && !this.ruleset.hasRulesWithZeroMatchingCases) {
-          strength = strength/matchingCases;
+          strength /= matchingCases;
         }
 
         if (!this.matchedCases[datasetCase.index]) {
@@ -95,10 +97,10 @@ export default class Classifier {
         caseAttributes.forEach((attribute) => {
           let matchedCondition = matchedConditionsMap[attribute.name];
 
-          if (matchedCondition && matchedCondition.isSymbolic && matchedCondition.belongsToInterval(attribute.value)) {
+          if (matchedCondition && matchedCondition.hasInterval && matchedCondition.belongsToInterval(attribute.value)) {
             numberOfMatchedConditions++;
-          } else if (matchedCondition && !matchedCondition.isSymbolic) {
-            if (attribute.isMissing || attribute.isAttributeConcept) {
+          } else if (matchedCondition && !matchedCondition.hasInterval) {
+            if (attribute.isDoNotCare || attribute.isAttributeConcept) {
               numberOfMatchedConditions++;
             } else if (attribute.value === matchedCondition.value) {
               numberOfMatchedConditions++;
@@ -112,6 +114,7 @@ export default class Classifier {
         if (numberOfMatchedConditions === numberOfConditionsInRule && !datasetCase.hasLostValue) {
           matchingScore = strength * specificity * matchingFactor;
           matchedCaseDecision.isCompletelyMatched = true;
+          rule.completelyMatchedCases.push(datasetCase);
 
           if (this.shouldUseSupportFromOtherRules) {
             matchedCaseDecision.score = matchingScore + matchedCaseDecision.score;
@@ -124,12 +127,12 @@ export default class Classifier {
          * Attempt Partial Matching.
          */
         if (numberOfMatchedConditions > 0) {
-          let matchedCase = this.matchedCases[datasetCase.index];
           let isCaseCompletelyMatched = Object.keys(matchedCase).some(decision => matchedCase[decision].isCompletelyMatched);
 
           if (!isCaseCompletelyMatched) {
             matchingFactor = !this.shouldUseMatchingFactor ? (numberOfMatchedConditions/numberOfConditionsInRule).toFixed(2) : matchingFactor;
             matchingScore = strength * specificity * matchingFactor;
+            rule.partiallyMatchedCases.push(datasetCase);
 
             if (this.shouldUseSupportFromOtherRules) {
               matchedCaseDecision.score = matchingScore + matchedCaseDecision.score;
@@ -152,7 +155,7 @@ export default class Classifier {
       let caseConcepts = this.matchedCases[datasetCase.index];
       let caseConceptsLength = Object.keys(caseConcepts).length;
       let decisionWithHighestScore = null;
-      let hasDuplicateHighestScores = false;
+      let hasDuplicateDecisionsWithHighestScore = false;
       let zeroScores = [];
       let hasAllZeroScores = false;
 
@@ -169,9 +172,9 @@ export default class Classifier {
 
           if (index > 0) {
             if (decisionWithHighestScore.score === caseConceptScore) {
-              hasDuplicateHighestScores = true;
+              hasDuplicateDecisionsWithHighestScore = true;
             } else {
-              hasDuplicateHighestScores = false;
+              hasDuplicateDecisionsWithHighestScore = false;
             }
 
             if (!decisionWithHighestScore.isCompletelyMatched && caseConcept.isCompletelyMatched) {
@@ -195,7 +198,7 @@ export default class Classifier {
         hasAllZeroScores = true;
       }
 
-      datasetCase.isClassified = !hasAllZeroScores && !hasDuplicateHighestScores;
+      datasetCase.isClassified = !hasAllZeroScores && !hasDuplicateDecisionsWithHighestScore;
       datasetCase.isCompletelyMatched = datasetCase.isClassified && decisionWithHighestScore.isCompletelyMatched;
       datasetCase.isPartiallyMatched = datasetCase.isClassified && !decisionWithHighestScore.isCompletelyMatched;
       datasetCase.isCorrectlyClassified = datasetCase.isClassified && datasetCase.decision.value === decisionWithHighestScore.name;

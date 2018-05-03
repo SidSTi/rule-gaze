@@ -6,16 +6,23 @@ import { pruneData, hasValidRuleConditions, hasValidRuleFactors, hasVariables, i
 export default DS.Model.extend({
   fileName  : attr('string'),
   fileSize  : attr('string'),
-  content   : attr('string', { defaultValue: ' '}),
+  content   : attr('string', { defaultValue: '' }),
   isSelected: attr('boolean', { defaultValue: false }),
 
   prunedData: computed('content', {
     get() {
-      return pruneData(this.get('content'));
+      let prunedData = pruneData(this.get('content'));
+
+      // remove any variable definitions
+      if (isVariableDefinition(prunedData[0])) {
+        prunedData.shift();
+      }
+
+      return prunedData;
     }
   }),
 
-  isRuleFile: computed('prunedData', {
+  isRuleset: computed('prunedData', {
     get() {
       let prunedData = this.get('prunedData');
 
@@ -23,17 +30,17 @@ export default DS.Model.extend({
     }
   }),
 
-  isDataFile: computed('prunedData', {
+  isDataset: computed('prunedData', {
     get() {
       let prunedData = this.get('prunedData');
 
-      return prunedData.some(data => hasVariables(data)) && prunedData.some(data => isVariableDefinition(data));
+      return prunedData.some(data => hasVariables(data));
     }
   }),
 
   isValidFile: computed('prunedData', {
     get() {
-      return this.get('isDataFile') || this.get('isRuleFile');
+      return this.get('isDataset') || this.get('isRuleset');
     }
   })
 });

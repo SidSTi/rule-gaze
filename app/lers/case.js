@@ -49,12 +49,12 @@ export default class Case {
   /**
    * Whether the case has any symbolic values.
    *
-   * @public
-   * @property hasSymbolicValues
+   * @publicß
+   * @property hasIntervalValues
    * @type {boolean}
    */
-  get hasSymbolicValues() {
-    return this.attributes.some(attribute => attribute.isSymbolic);
+  get hasIntervalValues() {
+    return this.attributes.some(attribute => attribute.hasInterval);
   }
 
   /**
@@ -66,7 +66,7 @@ export default class Case {
    * @function toString
    * @param {string} format
    */
-  toString() {
+  get toString() {
     return `[${this.attributes.map(attribute => attribute.value).join(', ')}, ${this.decision.value}]`;
   }
 }

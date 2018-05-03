@@ -1,18 +1,41 @@
 .data-file-list-item {
   background: inherit;
+  padding: 10px;
 
-  .col {
-    padding: 0 5px;
-  }
+  .file-type {
+    .badge {
+      padding: 8px;
+      margin-right: 10px;
+      border: 1px solid $angels-gray;
+      border-radius: 4px;
+      font-weight: 400;
 
-  .badge {
-    float: right;
-    padding: 8px;
-    vertical-align: middle;
+      &.badge-rule {
+        border-color: $tangerine;
+        color: $tangerine;
+      }
+
+      &.badge-data {
+        border-color: $teal;
+        color: $teal;
+      }
+
+      &.badge-invalid {
+        border-color: $red;
+        color: $red;
+      }
+    }
   }
 
   .file-name {
     font-size: 18px;
+  }
+
+  .file-delete,
+  .file-select {
+    .btn {
+      padding: 0;
+    }
   }
 
   .file-delete {
@@ -20,7 +43,7 @@
       fill: $angels-gray;
 
       &:hover {
-        fill: $charcoal;
+        fill: $white-chocolate;
       }
     }
   }
@@ -30,7 +53,7 @@
       fill: $angels-gray;
 
       &:hover {
-        fill: $charcoal;
+        fill: $white-chocolate;
       }
     }
 

@@ -1,45 +1,17 @@
 import Route from '@ember/routing/route';
-import { task } from 'ember-concurrency';
-import { get } from '@ember/object';
 
 export default Route.extend({
 
+  /**
+   * Ember hook called to resolve the model for this route.
+   *
+   * @private
+   * @override
+   * @function model
+   *
+   * @return {Object|Promise} The model for this route.
+   */
   model() {
     return this.get('store').peekAll('data-file');
-  },
-
-  uploadData: task(function * (file) {
-    let dataFile = this.store.createRecord('data-file', {
-      id: get(file, 'id'),
-      fileName: get(file, 'name'),
-      fileSize: get(file, 'size')
-    });
-
-    try {
-      let content = yield file.readAsText();
-
-      dataFile.set('content', content);
-
-    } catch (e) {
-      dataFile.rollback();
-    }
-  }).maxConcurrency(3).enqueue(),
-
-  actions: {
-    uploadData(file) {
-      get(this, 'uploadData').perform(file);
-    },
-
-    deleteFile(fileId) {
-      let dataFile = this.store.peekRecord('data-file', fileId);
-
-      dataFile.deleteRecord();
-    },
-
-    selectFile(fileId) {
-      let dataFile = this.store.peekRecord('data-file', fileId);
-
-      dataFile.toggleProperty('isSelected');
-    }
   }
 });

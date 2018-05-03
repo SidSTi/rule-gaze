@@ -13,7 +13,7 @@ import { extractVariable } from './parser';
  * attribute.isLost // false
  * attribute.isDoNotCare // false
  * attribute.isAttributeConcept // false
- * attribute.isSymbolic // true
+ * attribute.hasInterval // true
  *
  * // in-built methods
  * attribute.toString() // '(temperature, 101..104)'
@@ -89,10 +89,10 @@ export default class Variable {
    * Determine whether an attribute value is symbolic.
    *
    * @public
-   * @property isSymbolic
+   * @property hasInterval
    * @type {boolean}
    */
-  get isSymbolic() {
+  get hasInterval() {
     return this.value
       .match(/(\d.*\.\..*\d)+?/g) !== null;
   }
@@ -129,7 +129,7 @@ export default class Variable {
    *
    * @return {string} - attribute-value of format `(name, variable)`.
    */
-  toString() {
+  get toString() {
     return `(${this.name}, ${this.value})`;
   }
 

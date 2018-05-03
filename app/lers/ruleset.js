@@ -12,9 +12,11 @@ export default class Ruleset {
    * @function constructor
    * @param {string[]} data
    */
-  construcltor(data = []) {
+  constructor(data = []) {
     this.hasProperFormat = true;
     this.rules = [];
+    this.rulesByConcept = [];
+    let cache = [];
 
     // extract rules
     for (let i = 0; i < data.length; i += 2) {
@@ -22,12 +24,26 @@ export default class Ruleset {
         this.hasProperFormat = hasValidRuleFactors(data[i]);
         break;
       } else if (hasValidRuleConditions(data[i + 1])) {
-        this.rules.push(
-          new Rule(
-            extractRule(data[i + 1]),
-            extractRuleFactors(data[i])
-          )
+        let rule = new Rule(
+          extractRule(data[i + 1]),
+          extractRuleFactors(data[i])
         );
+        let ruleActionValue = rule.action.value;
+        this.rules.push(rule);
+
+        // create new concept
+        if (cache.indexOf(ruleActionValue) === -1) {
+          // add the concept's decision value to the cache for tracking
+          cache.push(ruleActionValue);
+          // create a new concept and add it to the rules by concepts array
+          this.rulesByConcept[cache.indexOf(ruleActionValue)] = {
+            action: rule.action,
+            rules: []
+          };
+        }
+
+        // add case to its corresponding concept
+        this.rulesByConcept[cache.indexOf(ruleActionValue)].rules.push(rule);
       }
     }
 

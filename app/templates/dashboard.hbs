@@ -1,13 +1,19 @@
-<nav class="navigation navbar fixed-top">
-  {{#link-to "dashboard" class="navbar-brand"}}Rule Gaze{{/link-to}}
-</nav>
 <div class="dashboard container">
   <div class="row">
-    {{dropzone-container
-      model=model
-      onFileAdd=(route-action "uploadData")
-      onClickDelete=(route-action "deleteFile")
-      onClickSelect=(route-action "selectFile")
-    }}
+    <div class="col">
+      {{dropzone-container
+        model=model
+        onFileAdd=(action "uploadData")
+        onClickDelete=(action "deleteFile")
+        onClickSelect=(action "selectFile")
+      }}
+    </div>
+  </div>
+  <div class="row engage-visualization">
+    <div class="col d-flex justify-content-center align-items-center">
+      {{#link-to "visualize" class=(concat "btn btn-outline-info " (unless hasNecessarySelectedFiles "disabled"))}}
+        Visualize
+      {{/link-to}}
+    </div>
   </div>
 </div>

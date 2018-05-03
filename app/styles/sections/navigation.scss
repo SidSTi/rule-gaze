@@ -1,6 +1,6 @@
 .navigation {
-  background: $white-chocolate;
-  border-bottom: 5px solid $primary;
+  background: darken($backdrop, 10%);
+  border-bottom: 3px solid darken($backdrop, 15%);
 
   .navbar-brand {
     font-family: 'Monoton-Regular', 'Roboto';
@@ -12,5 +12,12 @@
     &:hover {
       color: $secondary;
     }
+  }
+
+  &.navbar-footer {
+    border-bottom: none;
+    border-top: 2px solid darken($backdrop, 15%);
+    background: darken($backdrop, 10%);
+    justify-content: flex-end;
   }
 }

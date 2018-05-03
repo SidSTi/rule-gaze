@@ -1,3 +1,17 @@
 .dashboard {
   margin-top: 140px;
+
+  .engage-visualization {
+    padding: 30px;
+
+    .btn-outline-info {
+      color: $white-chocolate;
+      font-size: 22px;
+
+      &.disabled {
+        color: $angels-gray;
+        border-color: $angels-gray;
+      }
+    }
+  }
 }
