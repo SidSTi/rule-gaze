@@ -25,6 +25,10 @@ export default class Rule {
     this.matchingCases = matchingCases;
     this.completelyMatchedCases = [];
     this.partiallyMatchedCases = [];
+    this.correctlyClassifiedCases = [];
+    this.ruleDomainSize = 0;
+    this.classifiedStrength = 0;
+    this.classifiedConditionalProbability = 0;
   }
 
   get toString() {

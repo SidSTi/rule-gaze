@@ -1,8 +1,15 @@
 import Controller from '@ember/controller';
-import { computed, get } from '@ember/object';
-import { task } from 'ember-concurrency';
+import {
+  computed,
+  get
+} from '@ember/object';
+import {
+  task
+} from 'ember-concurrency';
 import Classifier from '../lers/classifier';
-import { copy } from '@ember/object/internals';
+import {
+  copy
+} from '@ember/object/internals';
 
 export default Controller.extend({
 
@@ -28,6 +35,15 @@ export default Controller.extend({
       return hasNecessaryRuleFile && hasNecessaryDataFile;
     }
   }),
+
+  /**
+   * Control experiment mode.
+   *
+   * @public
+   * @property experimentMode
+   * @type {boolean}
+   */
+  experimentMode: false,
 
   /**
    * Stores the LERS classified data.
@@ -90,7 +106,7 @@ export default Controller.extend({
    * @function uploadData
    * @param file
    */
-  uploadData: task(function * (file) {
+  uploadData: task(function*(file) {
     let dataFile = this.store.createRecord('data-file', {
       id: get(file, 'id'),
       fileName: get(file, 'name'),
@@ -113,14 +129,14 @@ export default Controller.extend({
    * @private
    * @function visualize
    */
-  visualize: task(function * () {
+  visualize: task(function*() {
     let ruleset = this.get('model').find(ruleset => {
       return ruleset.get('isRuleset', true) && ruleset.get('isSelected', true);
     });
     let dataset = this.get('model').find(dataset => {
       return dataset.get('isDataset', true) && dataset.get('isSelected', true);
     });
-    let LERS = yield new Classifier (
+    let LERS = yield new Classifier(
       copy(ruleset.get('prunedData'), true),
       copy(dataset.get('prunedData'), true),
       this.get('shouldUseMatchingFactor'),
@@ -130,7 +146,7 @@ export default Controller.extend({
     );
 
     this.setProperties({
-      LERS: LERS,
+      LERS,
       visualizationModeOn: true
     });
   }).keepLatest(),

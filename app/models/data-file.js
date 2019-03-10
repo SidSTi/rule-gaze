@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import attr from 'ember-data/attr';
 import { computed } from '@ember/object';
-import { pruneData, hasValidRuleConditions, hasValidRuleFactors, hasVariables, isVariableDefinition } from '../lers/parser';
+import { pruneData, hasValidRuleConditions, hasVariables, isVariableDefinition } from '../lers/parser';
 
 export default DS.Model.extend({
   fileName  : attr('string'),
@@ -26,7 +26,7 @@ export default DS.Model.extend({
     get() {
       let prunedData = this.get('prunedData');
 
-      return prunedData.some(data => hasValidRuleConditions(data)) && prunedData.some(data => hasValidRuleFactors(data));
+      return prunedData.some(data => hasValidRuleConditions(data));
     }
   }),
 

@@ -43,13 +43,64 @@ export default class Classifier {
     }
 
     // classify cases
-    this.buildClassificationModel();
-    this.classifyCases();
+    this.buildVisualizationModel();
+    this.generateVisualizationStatistics();
     this.printGeneralStatistics();
   }
 
   get stringify() {
     return info(this.matchedCases);
+  }
+
+  buildVisualizationModel() {
+    this.ruleset.rules.forEach(rule => {
+      let ruleConditions = rule.conditions;
+      let numberOfConditionsInRule = ruleConditions.length;
+
+      this.dataset.cases.forEach(datasetCase => {
+        let caseAttributes = datasetCase.attributes;
+        let numberOfMatchedConditions = 0;
+        let matchedConditionsMap = ruleConditions.reduce((matchedConditionsMap, condition) => {
+          matchedConditionsMap[condition.name] = condition;
+
+          return matchedConditionsMap;
+        }, {});
+
+        caseAttributes.forEach((attribute) => {
+          let matchedCondition = matchedConditionsMap[attribute.name];
+
+          if (matchedCondition && matchedCondition.hasInterval && matchedCondition.belongsToInterval(attribute.value)) {
+            numberOfMatchedConditions++;
+          } else if (matchedCondition && !matchedCondition.hasInterval) {
+            if (attribute.isDoNotCare || attribute.isAttributeConcept) {
+              numberOfMatchedConditions++;
+            } else if (attribute.value === matchedCondition.value) {
+              numberOfMatchedConditions++;
+            }
+          }
+        });
+
+        if (numberOfMatchedConditions > 0) {
+          if (numberOfMatchedConditions === numberOfConditionsInRule && !datasetCase.hasLostValue) {
+            rule.completelyMatchedCases.push(datasetCase);
+          } else {
+            rule.partiallyMatchedCases.push(datasetCase);
+          }
+
+          if (datasetCase.decision.value === rule.action.value) {
+            rule.correctlyClassifiedCases.push(datasetCase);
+          }
+        }
+      });
+    });
+  }
+
+  generateVisualizationStatistics() {
+    this.ruleset.rules.forEach(rule => {
+      rule.ruleDomainSize = rule.completelyMatchedCases.length + rule.partiallyMatchedCases.length;
+      rule.classifiedStrength = rule.correctlyClassifiedCases.length;
+      rule.classifiedConditionalProbability = (rule.classifiedStrength/rule.ruleDomainSize).toFixed(2);
+    });
   }
 
   /**
