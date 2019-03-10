@@ -1,0 +1,24 @@
+<div class="col col-2 file-type d-flex justify-content-end">
+  {{#if model.isValidFile}}
+    {{#if model.isRuleset}}
+      <span class="badge badge-rule">Ruleset</span>
+    {{else if model.isDataset}}
+      <span class="badge badge-data">Dataset</span>
+    {{/if}}
+  {{else}}
+    <span class="badge badge-invalid">Invalid</span>
+  {{/if}}
+</div>
+<div class="col col-8 file-name">
+  {{model.fileName}}
+</div>
+<div class="col col-1 d-flex justify-content-center file-delete">
+  <button type="button" class="btn btn-link" onclick={{action onClickDelete model.id}}>
+    {{svg-jar "trashcan" class="octicons" width="20px" height="20px"}}
+  </button>
+</div>
+<div class="col col-1 d-flex justify-content-center file-select">
+  <button type="button" class="btn btn-link" onclick={{action onClickSelect model.id}}>
+    {{svg-jar "check" class=(if model.isSelected "active" "inactive") width="20px" height="20px"}}
+  </button>
+</div>

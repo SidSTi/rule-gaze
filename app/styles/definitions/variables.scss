@@ -9,7 +9,7 @@ $pager-color: #AAA;
 $white          : #FFF;
 $white-chocolate: #F8F8F8;
 $ivory          : #FFFFF0;
-$designo-silver : #F5F5F5;
+$designo-silver : #DDD;
 $overcast       : #AAA;
 $angels-gray    : #999;
 $devils-gray    : #666;
@@ -19,3 +19,18 @@ $tangerine      : #F28120;
 $metallic-gold  : #FFD733;
 $khaki          : #FBFF26;
 $sky-blue       : #6ADDFF;
+
+// themes
+$primary: $cyan;
+$secondary: $tangerine;
+$ternary: $teal;
+$backdrop: $charcoal;
+
+@mixin font-face($name) {
+  @font-face {
+    font-family: $name;
+    src: url('fonts/#{$name}.ttf') format('truetype');
+  }
+}
+
+@include font-face('Monoton-Regular');

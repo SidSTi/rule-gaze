@@ -1,2 +1,41 @@
-{{outlet}}
-<h1>Welcome to Rule Gaze</h1>
+<div class="dashboard container">
+  {{#unless experimentMode}}
+    {{#unless visualizationModeOn}}
+      <div class="row">
+        <div class="col">
+          {{dropzone-container
+            model=model
+            onFileAdd=(action "uploadData")
+            onClickDelete=(action "deleteFile")
+            onClickSelect=(action "selectFile")
+          }}
+        </div>
+      </div>
+      <div class="row engage-visualization">
+        <div class="col d-flex justify-content-center align-items-center">
+          <button
+            type="button"
+            class={{concat "btn btn-outline-info " (unless hasNecessarySelectedFiles "disabled")}}
+            onclick={{perform visualize}}
+          >
+            Visualize
+          </button>
+        </div>
+      </div>
+    {{else}}
+      {{visualization-container LERS=LERS}}
+    {{/unless}}
+  {{else}}
+    {{force-directed-rules}}
+  {{/unless}}
+</div>
+{{#if visualizationModeOn}}
+  {{classification-navbar
+    shouldUseMatchingFactor=shouldUseMatchingFactor
+    shouldUseConditionalProbability=shouldUseConditionalProbability
+    shouldUseSpecificityReturnFactor=shouldUseSpecificityReturnFactor
+    shouldUseSupportFromOtherRules=shouldUseSupportFromOtherRules
+    onToggleSwitch=(action "toggleSwitch")
+    onClickBack=(action "resetDashboard")
+  }}
+{{/if}}

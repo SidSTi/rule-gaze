@@ -7,7 +7,6 @@ coverage.json
 
 # dependencies
 /node_modules
-/bower_components
 
 # misc
 /.sass-cache
@@ -21,6 +20,7 @@ testem.log
 /typings
 .idea
 MODULE_REPORT.md
+electron-out/
 
 # ember-try
 .node_modules.ember-try/

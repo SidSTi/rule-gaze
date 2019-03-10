@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col col-9">
+    <div class="row rule-legend d-flex align-items-center justify-content-end">
+      <div class="legend-container">
+        <span class="teal"></span>
+        <span class="legend-label">Completely Matched</span>
+      </div>
+      <div class="legend-container">
+        <span class="metallic-gold"></span>
+        <span class="legend-label">Partially Matched</span>
+      </div>
+    </div>
+    {{#each LERS.ruleset.rulesByConcept as |ruleConcept|}}
+      <div class="row rule-header">
+        <div class="col">Concept: {{ruleConcept.action.toString}}</div>
+      </div>
+      {{#each ruleConcept.rules as |rule|}}
+        <div class="row rule-visual">{{rule.toString}}</div>
+        <div class="row stacked-bar-bg">
+          <span class="stacked-bar-complete" style="width:{{chunk rule.completelyMatchedCases.length LERS.dataset.cases.length}}%"></span>
+          <span class="stacked-bar-partial" style="width:{{chunk rule.partiallyMatchedCases.length LERS.dataset.cases.length}}%"></span>
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="row">Nothing Yet</div>
+    {{/each}}
+  </div>
+  <div class="col col-3 general-statistics">
+    <div class="row statistics-header">
+      General Statistics
+    </div>
+    <div class="row stat-label">Total Cases</div>
+    <div class="row stat-value">{{LERS.generalStatistics.totalNumberOfCases}}</div>
+    <div class="row stat-label">Total Rules</div>
+    <div class="row stat-value">{{LERS.generalStatistics.totalNumberOfRules}}</div>
+    <div class="row stat-label">Total Attributes</div>
+    <div class="row stat-value">{{LERS.generalStatistics.totalNumberOfAttributes}}</div>
+    <div class="row stat-label">Cases Correctly Classified</div>
+    <div class="row stat-value">{{LERS.generalStatistics.casesCorrectlyClassified}}</div>
+    <div class="row stat-label">Cases Incorrectly Classified</div>
+    <div class="row stat-value">{{LERS.generalStatistics.casesIncorrectlyClassified}}</div>
+    <div class="row stat-label">Error Rate</div>
+    <div class="row stat-value">{{LERS.generalStatistics.errorRate}}</div>
+  </div>
+</div>

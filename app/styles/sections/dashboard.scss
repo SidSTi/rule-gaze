@@ -1,0 +1,21 @@
+.dashboard {
+  padding: 100px 0;
+
+  .dropzone-container {
+    padding-top: 40px;
+  }
+
+  .engage-visualization {
+    padding: 30px;
+
+    .btn-outline-info {
+      color: $white-chocolate;
+      font-size: 22px;
+
+      &.disabled {
+        color: $angels-gray;
+        border-color: $angels-gray;
+      }
+    }
+  }
+}

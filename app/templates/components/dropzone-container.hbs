@@ -1,0 +1,37 @@
+{{#file-dropzone name="addFiles" as |dropzone queue|}}
+  <div class="dropzone-upload-area container-fluid {{if (and dropzone.active dropzone.valid) 'active'}}">
+    <div class="dropzone-prompt row align-items-center justify-content-center">
+      {{#if dropzone.supported}}
+        <span>Drag your files or</span>
+      {{/if}}
+      {{#file-upload name="addFiles"
+        multiple=true
+        onfileadd=onFileAdd
+        accept="text/plain"
+      }}
+        <a class="btn btn-outline-info">browse</a>
+      {{/file-upload}}
+      <span>to upload.</span>
+    </div>
+    <div class="dropzone-condition row align-items-center justify-content-center">
+      {{#if model.length}}
+        Select a Ruleset and its corresponding Dataset to visualize.
+      {{/if}}
+    </div>
+    <div class="dropzone-files column">
+      <ul class="list-group list-group-flush">
+        {{#each model as |file|}}
+          {{data-file-list-item
+            model=file
+            onClickDelete=onClickDelete
+            onClickSelect=onClickSelect
+          }}
+        {{else}}
+          <li class="no-data">
+            No files to display
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+{{/file-dropzone}}

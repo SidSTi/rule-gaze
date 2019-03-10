@@ -1,0 +1,22 @@
+<div class="row toggle-switch-header">
+  <span>{{labelTop}}</span>
+</div>
+<div class="row toggle-switch-body">
+  <div class="column">
+    <span>{{labelLeft}}</span>
+  </div>
+  <div class="column">
+    <input
+      id={{identifier}}
+      class="tgl tgl-ios"
+      type="checkbox"
+      onclick={{action onToggleSwitch identifier}}
+      checked={{isSwitchedOn}}
+    >
+    <label class="tgl-btn" for={{identifier}}></label>
+  </div>
+  <div class="column">
+    <span>{{labelRight}}</span>
+  </div>
+</div>
+

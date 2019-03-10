@@ -1,12 +1,13 @@
 body {
-  background: $white-chocolate;
+  background-color: $backdrop;
+  color: $white-chocolate;
 
   p {
     margin-bottom: 24px;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'Calibri', 'Times New Roman', Times, serif;
   }
 
   h1 {
@@ -23,5 +24,13 @@ body {
 
   h4, h5, h6 {
     font-size: 20px;
+  }
+
+  .no-margin {
+    margin: 0;
+  }
+
+  .no-padding {
+    padding: 0;
   }
 }
